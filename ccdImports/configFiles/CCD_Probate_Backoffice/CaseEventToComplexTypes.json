@@ -1,0 +1,3 @@
+[
+  {"LiveFrom": "01/01/2017", "ID": "examiningMatches", "CaseEventID": "boFindMatchedCaseForExamining", "CaseFieldID":"caseMatches", "ListElementCode": "caseLink", "EventElementLabel": "", "EventHintText": "", "FieldDisplayOrder": "1", "DisplayContext": "READONLY", "FieldShowCondition": "" }
+]
