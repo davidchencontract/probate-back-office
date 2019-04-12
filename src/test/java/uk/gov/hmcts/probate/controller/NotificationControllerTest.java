@@ -13,7 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-import uk.gov.hmcts.probate.exception.InternalServerErrorException;
+import uk.gov.hmcts.probate.exception.ProbateServerException;
 import uk.gov.hmcts.probate.insights.AppInsights;
 import uk.gov.hmcts.probate.model.ccd.raw.Document;
 import uk.gov.hmcts.probate.model.ccd.raw.request.CallbackRequest;
@@ -75,7 +75,7 @@ public class NotificationControllerTest {
     private static final String CASE_STOPPED_URL = "/notify/case-stopped";
 
     @Before
-    public void setUp() throws NotificationClientException, InternalServerErrorException {
+    public void setUp() throws NotificationClientException, ProbateServerException {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
 
         Document document = Document.builder().documentType(DIGITAL_GRANT).build();

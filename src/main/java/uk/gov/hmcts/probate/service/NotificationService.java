@@ -8,7 +8,7 @@ import uk.gov.hmcts.probate.config.notifications.EmailAddresses;
 import uk.gov.hmcts.probate.config.notifications.NotificationTemplates;
 import uk.gov.hmcts.probate.config.properties.registries.RegistriesProperties;
 import uk.gov.hmcts.probate.config.properties.registries.Registry;
-import uk.gov.hmcts.probate.exception.InternalServerErrorException;
+import uk.gov.hmcts.probate.exception.ProbateServerException;
 import uk.gov.hmcts.probate.model.ApplicationType;
 import uk.gov.hmcts.probate.model.SentEmail;
 import uk.gov.hmcts.probate.model.State;
@@ -167,7 +167,7 @@ public class NotificationService {
             case GENERAL_CAVEAT_MESSAGE:
                 return notificationTemplates.getEmail().get(applicationType).getGeneralCaveatMessage();
             default:
-                throw new InternalServerErrorException("Unsupported state");
+                throw new ProbateServerException("Unsupported state");
         }
     }
 
@@ -178,7 +178,7 @@ public class NotificationService {
             case PERSONAL:
                 return caseData.getPrimaryApplicantEmailAddress().toLowerCase();
             default:
-                throw new InternalServerErrorException("Unsupported application type");
+                throw new ProbateServerException("Unsupported application type");
         }
     }
 

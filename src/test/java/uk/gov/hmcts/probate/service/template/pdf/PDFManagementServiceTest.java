@@ -9,7 +9,7 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.hateoas.Link;
 import uk.gov.hmcts.probate.config.PDFServiceConfiguration;
-import uk.gov.hmcts.probate.exception.InternalServerErrorException;
+import uk.gov.hmcts.probate.exception.ProbateServerException;
 import uk.gov.hmcts.probate.exception.ConnectionException;
 import uk.gov.hmcts.probate.model.SentEmail;
 import uk.gov.hmcts.probate.model.ccd.raw.Document;
@@ -216,14 +216,14 @@ public class PDFManagementServiceTest {
         assertEquals(href, response.getDocumentLink().getDocumentUrl());
     }
 
-    @Test(expected = InternalServerErrorException.class)
+    @Test(expected = ProbateServerException.class)
     public void shouldThrowExceptionIfUnableToDecryptSignatureFile() throws IOException {
         when(pdfServiceConfiguration.getGrantSignatureSecretKey()).thenReturn("testkey");
 
         Document response = underTest.generateAndUpload(willLodgementCallbackRequestMock, WILL_LODGEMENT_DEPOSIT_RECEIPT);
     }
     
-    @Test(expected = InternalServerErrorException.class)
+    @Test(expected = ProbateServerException.class)
     public void shouldThrowExceptionForInvalidRequest() throws IOException {
         when(objectMapperMock.writeValueAsString(callbackRequestMock)).thenThrow(jsonProcessingException);
 

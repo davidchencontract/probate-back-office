@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-import uk.gov.hmcts.probate.exception.InternalServerErrorException;
+import uk.gov.hmcts.probate.exception.ProbateServerException;
 import uk.gov.hmcts.probate.exception.ClientException;
 import uk.gov.hmcts.probate.exception.ConnectionException;
 import uk.gov.hmcts.probate.exception.InvalidPayloadException;
@@ -31,8 +31,8 @@ class DefaultExceptionHandler extends ResponseEntityExceptionHandler {
     public static final String CLIENT_ERROR = "Client Error";
     public static final String CONNECTION_ERROR = "Connection error";
 
-    @ExceptionHandler(InternalServerErrorException.class)
-    public ResponseEntity<ErrorResponse> handle(InternalServerErrorException exception) {
+    @ExceptionHandler(ProbateServerException.class)
+    public ResponseEntity<ErrorResponse> handle(ProbateServerException exception) {
 
         log.info("Internal server error", keyValue("serverError", exception.getMessage()));
         ErrorResponse errorResponse = new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(),

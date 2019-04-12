@@ -5,7 +5,7 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.http.ResponseEntity;
-import uk.gov.hmcts.probate.exception.InternalServerErrorException;
+import uk.gov.hmcts.probate.exception.ProbateServerException;
 import uk.gov.hmcts.probate.exception.ClientException;
 import uk.gov.hmcts.probate.exception.ConnectionException;
 import uk.gov.hmcts.probate.exception.InvalidPayloadException;
@@ -35,7 +35,7 @@ public class DefaultExceptionHandlerTest {
     private ConnectionException connectionException;
 
     @Mock
-    private InternalServerErrorException internalServerErrorException;
+    private ProbateServerException probateServerException;
 
     @Mock
     private InvalidPayloadException invalidPayloadException;
@@ -111,9 +111,9 @@ public class DefaultExceptionHandlerTest {
 
     @Test
     public void shouldReturnInternalServerError() {
-        when(internalServerErrorException.getMessage()).thenReturn(EXCEPTION_MESSAGE);
+        when(probateServerException.getMessage()).thenReturn(EXCEPTION_MESSAGE);
 
-        ResponseEntity<ErrorResponse> response = underTest.handle(internalServerErrorException);
+        ResponseEntity<ErrorResponse> response = underTest.handle(probateServerException);
 
         assertEquals(INTERNAL_SERVER_ERROR, response.getStatusCode());
         assertEquals(DefaultExceptionHandler.INTERNAL_SERVER_ERROR, response.getBody().getError());
