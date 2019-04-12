@@ -10,6 +10,7 @@ import uk.gov.hmcts.probate.exception.ClientException;
 import uk.gov.hmcts.probate.exception.ConnectionException;
 import uk.gov.hmcts.probate.exception.model.ErrorResponse;
 import uk.gov.hmcts.probate.exception.model.FieldErrorResponse;
+import uk.gov.hmcts.probate.model.ccd.raw.response.CallbackResponse;
 import uk.gov.service.notify.NotificationClientException;
 
 import java.util.Arrays;
@@ -18,6 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
+import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.http.HttpStatus.SERVICE_UNAVAILABLE;
 
 public class DefaultExceptionHandlerTest {
@@ -68,28 +70,27 @@ public class DefaultExceptionHandlerTest {
     }
 
     @Test
-    public void shouldHandleMissingPDFDataAsStatusUN() {
+    public void shouldReportMissingDataWithStatusOK() {
         final FieldErrorResponse bve1Mock = FieldErrorResponse.builder()
                 .param("Object")
                 .field("field1")
-                .message("message")
+                .message("message1")
                 .build();
 
         final FieldErrorResponse bve2Mock = FieldErrorResponse.builder()
                 .param("Object")
                 .field("field2")
-                .message("message")
+                .message("message2")
                 .build();
 
         when(badRequestException.getErrors()).thenReturn(Arrays.asList(bve1Mock, bve2Mock));
 
-        ResponseEntity<ErrorResponse> response = underTest.handle(badRequestException);
+        ResponseEntity<CallbackResponse> response = underTest.handle(badRequestException);
 
-        assertEquals(BAD_REQUEST, response.getStatusCode());
-        assertEquals(DefaultExceptionHandler.INVALID_REQUEST, response.getBody().getError());
+        assertEquals(OK, response.getStatusCode());
 
-        assertEquals(bve1Mock, response.getBody().getFieldErrors().get(0));
-        assertEquals(bve2Mock, response.getBody().getFieldErrors().get(1));
+        assertEquals(bve1Mock.getMessage(), response.getBody().getErrors().get(0));
+        assertEquals(bve2Mock.getMessage(), response.getBody().getErrors().get(1));
     }
 
     @Test

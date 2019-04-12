@@ -12,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import uk.gov.hmcts.probate.controller.validation.AmendCaseDetailsForImportGroup;
 import uk.gov.hmcts.probate.controller.validation.AmendCaseDetailsGroup;
 import uk.gov.hmcts.probate.controller.validation.ApplicationCreatedGroup;
 import uk.gov.hmcts.probate.controller.validation.ApplicationUpdatedGroup;
@@ -83,7 +84,7 @@ public class BusinessValidationController {
 
     @PostMapping(path = "/validateCaseDetails", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<CallbackResponse> validateCaseDetails(
-            @Validated({AmendCaseDetailsGroup.class}) @RequestBody CallbackRequest callbackRequest,
+            @Validated({AmendCaseDetailsGroup.class, AmendCaseDetailsForImportGroup.class}) @RequestBody CallbackRequest callbackRequest,
             BindingResult bindingResult,
             HttpServletRequest request) {
 

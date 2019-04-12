@@ -12,10 +12,15 @@ import uk.gov.hmcts.probate.exception.BadRequestException;
 import uk.gov.hmcts.probate.exception.ClientException;
 import uk.gov.hmcts.probate.exception.ConnectionException;
 import uk.gov.hmcts.probate.exception.model.ErrorResponse;
+import uk.gov.hmcts.probate.exception.model.FieldErrorResponse;
+import uk.gov.hmcts.probate.model.ccd.raw.response.CallbackResponse;
 import uk.gov.service.notify.NotificationClientException;
+
+import java.util.stream.Collectors;
 
 import static net.logstash.logback.argument.StructuredArguments.keyValue;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
+import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.http.HttpStatus.SERVICE_UNAVAILABLE;
 
 @Slf4j
@@ -27,15 +32,17 @@ class DefaultExceptionHandler extends ResponseEntityExceptionHandler {
     public static final String CONNECTION_ERROR = "Connection error";
 
     @ExceptionHandler(BadRequestException.class)
-    public ResponseEntity<ErrorResponse> handle(BadRequestException exception) {
+    public ResponseEntity<CallbackResponse> handle(BadRequestException exception) {
 
         log.info("Invalid Payload", keyValue("missingKeys", exception.getErrors()));
-        ErrorResponse errorResponse = new ErrorResponse(HttpStatus.BAD_REQUEST.value(), INVALID_REQUEST, exception.getMessage());
-        errorResponse.setFieldErrors(exception.getErrors());
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        return new ResponseEntity<>(errorResponse, headers, BAD_REQUEST);
+
+        CallbackResponse callbackResponse = CallbackResponse.builder()
+                .errors(exception.getErrors().stream().map(FieldErrorResponse::getMessage).collect(Collectors.toList()))
+                .build();
+        return new ResponseEntity<>(callbackResponse, headers, OK);
     }
 
     @ExceptionHandler(ClientException.class)

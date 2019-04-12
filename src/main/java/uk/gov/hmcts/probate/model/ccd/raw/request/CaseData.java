@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
+import uk.gov.hmcts.probate.controller.validation.AmendCaseDetailsForImportGroup;
 import uk.gov.hmcts.probate.controller.validation.AmendCaseDetailsGroup;
 import uk.gov.hmcts.probate.controller.validation.ApplicationCreatedGroup;
 import uk.gov.hmcts.probate.controller.validation.ApplicationReviewedGroup;
@@ -114,12 +115,14 @@ public class CaseData {
     @NotBlank(groups = {ApplicationUpdatedGroup.class}, message = "{ihtFormIdIsNull}")
     private final String ihtFormId;
 
-    @NotNull(groups = {ApplicationUpdatedGroup.class}, message = "{ihtNetIsNull}")
-    @DecimalMin(groups = {ApplicationUpdatedGroup.class}, value = "0.0", message = "{ihtNetNegative}")
+    @NotNull(groups = {ApplicationUpdatedGroup.class, AmendCaseDetailsForImportGroup.class}, message = "{ihtNetIsNull}")
+    @DecimalMin(groups = {ApplicationUpdatedGroup.class, AmendCaseDetailsForImportGroup.class},
+            value = "0.0", message = "{ihtNetNegative}")
     private final BigDecimal ihtNetValue;
 
-    @NotNull(groups = {ApplicationUpdatedGroup.class}, message = "{ihtGrossIsNull}")
-    @DecimalMin(groups = {ApplicationUpdatedGroup.class}, value = "0.0", message = "{ihtGrossNegative}")
+    @NotNull(groups = {ApplicationUpdatedGroup.class, AmendCaseDetailsForImportGroup.class}, message = "{ihtGrossIsNull}")
+    @DecimalMin(groups = {ApplicationUpdatedGroup.class, AmendCaseDetailsForImportGroup.class},
+            value = "0.0", message = "{ihtGrossNegative}")
     private final BigDecimal ihtGrossValue;
 
     @NotBlank(groups = {ApplicationUpdatedGroup.class}, message = "{primaryApplicantForenamesIsNull}")
