@@ -9,7 +9,7 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.hateoas.Link;
 import uk.gov.hmcts.probate.config.PDFServiceConfiguration;
-import uk.gov.hmcts.probate.exception.BadRequestException;
+import uk.gov.hmcts.probate.exception.InternalServerErrorException;
 import uk.gov.hmcts.probate.exception.ConnectionException;
 import uk.gov.hmcts.probate.model.SentEmail;
 import uk.gov.hmcts.probate.model.ccd.raw.Document;
@@ -25,7 +25,6 @@ import uk.gov.hmcts.probate.service.evidencemanagement.upload.UploadService;
 import javax.crypto.BadPaddingException;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -217,14 +216,14 @@ public class PDFManagementServiceTest {
         assertEquals(href, response.getDocumentLink().getDocumentUrl());
     }
 
-    @Test(expected = BadRequestException.class)
+    @Test(expected = InternalServerErrorException.class)
     public void shouldThrowExceptionIfUnableToDecryptSignatureFile() throws IOException {
         when(pdfServiceConfiguration.getGrantSignatureSecretKey()).thenReturn("testkey");
 
         Document response = underTest.generateAndUpload(willLodgementCallbackRequestMock, WILL_LODGEMENT_DEPOSIT_RECEIPT);
     }
     
-    @Test(expected = BadRequestException.class)
+    @Test(expected = InternalServerErrorException.class)
     public void shouldThrowExceptionForInvalidRequest() throws IOException {
         when(objectMapperMock.writeValueAsString(callbackRequestMock)).thenThrow(jsonProcessingException);
 

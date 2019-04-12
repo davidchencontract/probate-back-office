@@ -8,7 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.test.context.junit4.SpringRunner;
-import uk.gov.hmcts.probate.exception.BadRequestException;
+import uk.gov.hmcts.probate.exception.InternalServerErrorException;
 import uk.gov.hmcts.probate.insights.AppInsights;
 import uk.gov.hmcts.probate.model.SentEmail;
 import uk.gov.hmcts.probate.model.ccd.caveat.request.CaveatData;
@@ -251,7 +251,7 @@ public class NotificationServiceTest {
 
     @Test
     public void sendDocumentsReceivedEmailToPersonalApplicantFromBirmingham()
-            throws NotificationClientException, BadRequestException {
+            throws NotificationClientException, InternalServerErrorException {
 
         notificationService.sendEmail(DOCUMENTS_RECEIVED, personalCaseDataBirmingham);
 
@@ -266,7 +266,7 @@ public class NotificationServiceTest {
 
     @Test
     public void sendDocumentsReceivedEmailToSolicitorFromBirmingham()
-            throws NotificationClientException, BadRequestException {
+            throws NotificationClientException, InternalServerErrorException {
 
         notificationService.sendEmail(DOCUMENTS_RECEIVED, solicitorCaseDataBirmingham);
 
@@ -281,7 +281,7 @@ public class NotificationServiceTest {
 
     @Test
     public void sendGrantIssuedEmailToPersonalApplicantFromBirmingham()
-            throws NotificationClientException, BadRequestException {
+            throws NotificationClientException, InternalServerErrorException {
 
         notificationService.sendEmail(GRANT_ISSUED, personalCaseDataBirmingham);
 
@@ -296,7 +296,7 @@ public class NotificationServiceTest {
 
     @Test
     public void sendGrantIssuedEmailToSolicitorFromBirmingham()
-            throws NotificationClientException, BadRequestException {
+            throws NotificationClientException, InternalServerErrorException {
 
         notificationService.sendEmail(GRANT_ISSUED, solicitorCaseDataBirmingham);
 
@@ -311,7 +311,7 @@ public class NotificationServiceTest {
 
     @Test
     public void sendCaseStoppedEmailToPersonalApplicantFromBirmingham()
-            throws NotificationClientException, BadRequestException {
+            throws NotificationClientException, InternalServerErrorException {
 
         notificationService.sendEmail(CASE_STOPPED, personalCaseDataBirmingham);
 
@@ -327,7 +327,7 @@ public class NotificationServiceTest {
 
     @Test
     public void sendCaseStoppedEmailToSolicitorFromBirmingham()
-            throws NotificationClientException, BadRequestException {
+            throws NotificationClientException, InternalServerErrorException {
 
         notificationService.sendEmail(CASE_STOPPED, solicitorCaseDataBirmingham);
 
@@ -343,7 +343,7 @@ public class NotificationServiceTest {
 
     @Test
     public void sendCaseStoppedEmailToPersonalApplicantFromOxford()
-            throws NotificationClientException, BadRequestException {
+            throws NotificationClientException, InternalServerErrorException {
 
         notificationService.sendEmail(CASE_STOPPED, personalCaseDataOxford);
 
@@ -359,7 +359,7 @@ public class NotificationServiceTest {
 
     @Test
     public void sendCaseStoppedEmailToSolicitorFromOxford()
-            throws NotificationClientException, BadRequestException {
+            throws NotificationClientException, InternalServerErrorException {
 
         notificationService.sendEmail(CASE_STOPPED, solicitorCaseDataOxford);
 
@@ -375,7 +375,7 @@ public class NotificationServiceTest {
 
     @Test
     public void sendCaseStoppedEmailToPersonalApplicantFromManchester()
-            throws NotificationClientException, BadRequestException {
+            throws NotificationClientException, InternalServerErrorException {
 
         notificationService.sendEmail(CASE_STOPPED, personalCaseDataManchester);
 
@@ -391,7 +391,7 @@ public class NotificationServiceTest {
 
     @Test
     public void sendCaseStoppedEmailToSolicitorFromManchester()
-            throws NotificationClientException, BadRequestException {
+            throws NotificationClientException, InternalServerErrorException {
 
         notificationService.sendEmail(CASE_STOPPED, solicitorCaseDataManchester);
 
@@ -407,7 +407,7 @@ public class NotificationServiceTest {
 
     @Test
     public void sendCaseStoppedEmailToPersonalApplicantFromCtsc()
-            throws NotificationClientException, BadRequestException {
+            throws NotificationClientException, InternalServerErrorException {
 
         notificationService.sendEmail(CASE_STOPPED, personalCaseDataCtsc);
 
@@ -423,7 +423,7 @@ public class NotificationServiceTest {
 
     @Test
     public void sendCaseStoppedEmailToPersonalApplicantFromBristol()
-            throws NotificationClientException, BadRequestException {
+            throws NotificationClientException, InternalServerErrorException {
 
         notificationService.sendEmail(CASE_STOPPED, personalCaseDataBristol);
 
@@ -439,7 +439,7 @@ public class NotificationServiceTest {
 
     @Test
     public void sendGeneralCaveatEmailToPersonalApplicantFromOxford()
-            throws NotificationClientException, BadRequestException {
+            throws NotificationClientException, InternalServerErrorException {
 
         notificationService.sendCaveatEmail(GENERAL_CAVEAT_MESSAGE, personalCaveatDataOxford);
 
@@ -454,7 +454,7 @@ public class NotificationServiceTest {
 
     @Test
     public void sendGeneralCaveatEmailToPersonalApplicantFromBirmingham()
-            throws NotificationClientException, BadRequestException {
+            throws NotificationClientException, InternalServerErrorException {
 
         notificationService.sendCaveatEmail(GENERAL_CAVEAT_MESSAGE, personalCaveatDataBirmingham);
 
@@ -469,7 +469,7 @@ public class NotificationServiceTest {
 
     @Test
     public void sendGeneralCaveatEmailToPersonalApplicantFromManchester()
-            throws NotificationClientException, BadRequestException {
+            throws NotificationClientException, InternalServerErrorException {
 
         notificationService.sendCaveatEmail(GENERAL_CAVEAT_MESSAGE, personalCaveatDataManchester);
 
@@ -484,7 +484,7 @@ public class NotificationServiceTest {
 
     @Test
     public void sendGeneralCaveatEmailToPersonalApplicantFromLeeds()
-            throws NotificationClientException, BadRequestException {
+            throws NotificationClientException, InternalServerErrorException {
 
         notificationService.sendCaveatEmail(GENERAL_CAVEAT_MESSAGE, personalCaveatDataLeeds);
 
@@ -499,7 +499,7 @@ public class NotificationServiceTest {
 
     @Test
     public void sendGeneralCaveatEmailToPersonalApplicantFromLiverpool()
-            throws NotificationClientException, BadRequestException {
+            throws NotificationClientException, InternalServerErrorException {
 
         notificationService.sendCaveatEmail(GENERAL_CAVEAT_MESSAGE, personalCaveatDataLiverpool);
 
@@ -514,7 +514,7 @@ public class NotificationServiceTest {
 
     @Test
     public void sendGeneralCaveatEmailToPersonalApplicantFromBrighton()
-            throws NotificationClientException, BadRequestException {
+            throws NotificationClientException, InternalServerErrorException {
 
         notificationService.sendCaveatEmail(GENERAL_CAVEAT_MESSAGE, personalCaveatDataBrighton);
 
@@ -529,7 +529,7 @@ public class NotificationServiceTest {
 
     @Test
     public void sendGeneralCaveatEmailToPersonalApplicantFromBristol()
-            throws NotificationClientException, BadRequestException {
+            throws NotificationClientException, InternalServerErrorException {
 
         notificationService.sendCaveatEmail(GENERAL_CAVEAT_MESSAGE, personalCaveatDataBristol);
 
@@ -544,7 +544,7 @@ public class NotificationServiceTest {
 
     @Test
     public void sendGeneralCaveatEmailToPersonalApplicantFromLondon()
-            throws NotificationClientException, BadRequestException {
+            throws NotificationClientException, InternalServerErrorException {
 
         notificationService.sendCaveatEmail(GENERAL_CAVEAT_MESSAGE, personalCaveatDataLondon);
 
@@ -559,7 +559,7 @@ public class NotificationServiceTest {
 
     @Test
     public void sendGeneralCaveatEmailToPersonalApplicantFromCardiff()
-            throws NotificationClientException, BadRequestException {
+            throws NotificationClientException, InternalServerErrorException {
 
         notificationService.sendCaveatEmail(GENERAL_CAVEAT_MESSAGE, personalCaveatDataCardiff);
 
@@ -574,7 +574,7 @@ public class NotificationServiceTest {
 
     @Test
     public void sendGeneralCaveatEmailToPersonalApplicantFromNewcastle()
-            throws NotificationClientException, BadRequestException {
+            throws NotificationClientException, InternalServerErrorException {
 
         notificationService.sendCaveatEmail(GENERAL_CAVEAT_MESSAGE, personalCaveatDataNewcastle);
 
@@ -589,7 +589,7 @@ public class NotificationServiceTest {
 
     @Test
     public void sendGeneralCaveatEmailToPersonalApplicantFromWinchester()
-            throws NotificationClientException, BadRequestException {
+            throws NotificationClientException, InternalServerErrorException {
 
         notificationService.sendCaveatEmail(GENERAL_CAVEAT_MESSAGE, personalCaveatDataWinchester);
 

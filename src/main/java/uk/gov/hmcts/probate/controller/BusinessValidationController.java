@@ -16,7 +16,7 @@ import uk.gov.hmcts.probate.controller.validation.AmendCaseDetailsForImportGroup
 import uk.gov.hmcts.probate.controller.validation.AmendCaseDetailsGroup;
 import uk.gov.hmcts.probate.controller.validation.ApplicationCreatedGroup;
 import uk.gov.hmcts.probate.controller.validation.ApplicationUpdatedGroup;
-import uk.gov.hmcts.probate.exception.BadRequestException;
+import uk.gov.hmcts.probate.exception.InvalidPayloadException;
 import uk.gov.hmcts.probate.model.ccd.raw.Document;
 import uk.gov.hmcts.probate.model.ccd.raw.request.CallbackRequest;
 import uk.gov.hmcts.probate.model.ccd.raw.response.AfterSubmitCallbackResponse;
@@ -66,7 +66,7 @@ public class BusinessValidationController {
 
         if (bindingResult.hasErrors()) {
             log.error(DEFAULT_LOG_ERROR, callbackRequest.getCaseDetails().getId(), bindingResult);
-            throw new BadRequestException(INVALID_PAYLOAD, bindingResult);
+            throw new InvalidPayloadException(INVALID_PAYLOAD, bindingResult);
         }
 
         CallbackResponse response = eventValidationService.validateRequest(callbackRequest, allValidationRules);
@@ -92,7 +92,7 @@ public class BusinessValidationController {
 
         if (bindingResult.hasErrors()) {
             log.error(DEFAULT_LOG_ERROR, callbackRequest.getCaseDetails().getId(), bindingResult);
-            throw new BadRequestException(INVALID_PAYLOAD, bindingResult);
+            throw new InvalidPayloadException(INVALID_PAYLOAD, bindingResult);
         }
 
         CallbackResponse response = eventValidationService.validateRequest(callbackRequest, allCaseworkerAmendValidationRules);
@@ -125,7 +125,7 @@ public class BusinessValidationController {
 
         if (bindingResult.hasErrors()) {
             log.error(DEFAULT_LOG_ERROR, callbackRequest.getCaseDetails().getId(), bindingResult);
-            throw new BadRequestException(INVALID_PAYLOAD, bindingResult);
+            throw new InvalidPayloadException(INVALID_PAYLOAD, bindingResult);
         }
 
         AfterSubmitCallbackResponse afterSubmitCallbackResponse = confirmationResponseService.getStopConfirmation(callbackRequest);
@@ -139,7 +139,7 @@ public class BusinessValidationController {
 
         if (bindingResult.hasErrors()) {
             log.error(DEFAULT_LOG_ERROR, callbackRequest.getCaseDetails().getId(), bindingResult);
-            throw new BadRequestException(INVALID_PAYLOAD, bindingResult);
+            throw new InvalidPayloadException(INVALID_PAYLOAD, bindingResult);
         }
 
         CallbackResponse response = callbackResponseTransformer.transformCase(callbackRequest);
@@ -154,7 +154,7 @@ public class BusinessValidationController {
 
         if (bindingResult.hasErrors()) {
             log.error(DEFAULT_LOG_ERROR, callbackRequest.getCaseDetails().getId(), bindingResult);
-            throw new BadRequestException(INVALID_PAYLOAD, bindingResult);
+            throw new InvalidPayloadException(INVALID_PAYLOAD, bindingResult);
         }
 
         CallbackResponse response = callbackResponseTransformer.paperForm(callbackRequest);

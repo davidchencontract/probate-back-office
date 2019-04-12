@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Link;
 import org.springframework.stereotype.Service;
 import uk.gov.hmcts.probate.config.PDFServiceConfiguration;
-import uk.gov.hmcts.probate.exception.BadRequestException;
+import uk.gov.hmcts.probate.exception.InternalServerErrorException;
 import uk.gov.hmcts.probate.exception.ConnectionException;
 import uk.gov.hmcts.probate.model.DocumentType;
 import uk.gov.hmcts.probate.model.SentEmail;
@@ -136,7 +136,7 @@ public class PDFManagementService {
                     .doFinal(Base64.getDecoder().decode(cipherMessage.getBytes())));
         } catch (Exception e) {
             log.error("Error while retrieving file resource " + fileResource + ": " + e.getMessage(), e);
-            throw new BadRequestException(e.getMessage());
+            throw new InternalServerErrorException(e.getMessage());
         }
         return decryptedString;     
     }
@@ -146,7 +146,7 @@ public class PDFManagementService {
             return objectMapper.writeValueAsString(data);
         } catch (JsonProcessingException e) {
             log.error(e.getMessage(), e);
-            throw new BadRequestException(e.getMessage());
+            throw new InternalServerErrorException(e.getMessage());
         }
     }
 }

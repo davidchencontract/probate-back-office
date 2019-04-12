@@ -13,7 +13,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import uk.gov.hmcts.probate.exception.BadRequestException;
+import uk.gov.hmcts.probate.exception.InvalidPayloadException;
+import uk.gov.hmcts.probate.exception.InvalidPayloadException;
 import uk.gov.hmcts.probate.exception.model.FieldErrorResponse;
 import uk.gov.hmcts.probate.model.ccd.CCDData;
 import uk.gov.hmcts.probate.model.ccd.raw.Document;
@@ -168,7 +169,7 @@ public class BusinessValidationUnitTest {
         assertThat(response.getStatusCode(), is(HttpStatus.OK));
     }
 
-    @Test(expected = BadRequestException.class)
+    @Test(expected = InvalidPayloadException.class)
     public void shouldValidateWithFieldErrors() {
         when(bindingResultMock.hasErrors()).thenReturn(true);
         when(bindingResultMock.getFieldErrors()).thenReturn(Collections.singletonList(fieldErrorMock));
@@ -218,7 +219,7 @@ public class BusinessValidationUnitTest {
     }
 
 
-    @Test(expected = BadRequestException.class)
+    @Test(expected = InvalidPayloadException.class)
     public void shouldValidateAmendCaseWithFieldErrors() {
         when(bindingResultMock.hasErrors()).thenReturn(true);
         when(bindingResultMock.getFieldErrors()).thenReturn(Collections.singletonList(fieldErrorMock));
@@ -248,7 +249,7 @@ public class BusinessValidationUnitTest {
         assertThat(response.getBody().getErrors().isEmpty(), is(false));
     }
 
-    @Test(expected = BadRequestException.class)
+    @Test(expected = InvalidPayloadException.class)
     public void shouldErrorForConfirmation() {
         when(bindingResultMock.hasErrors()).thenReturn(true);
         when(callbackRequestMock.getCaseDetails()).thenReturn(caseDetailsMock);
@@ -271,7 +272,7 @@ public class BusinessValidationUnitTest {
         assertThat(response.getStatusCode(), is(HttpStatus.OK));
     }
 
-    @Test(expected = BadRequestException.class)
+    @Test(expected = InvalidPayloadException.class)
     public void shouldTransformCaseWithFieldErrors() {
         when(bindingResultMock.hasErrors()).thenReturn(true);
         when(bindingResultMock.getFieldErrors()).thenReturn(Collections.singletonList(fieldErrorMock));
@@ -297,7 +298,7 @@ public class BusinessValidationUnitTest {
         assertThat(response.getBody().getErrors().isEmpty(), is(true));
     }
 
-    @Test(expected = BadRequestException.class)
+    @Test(expected = InvalidPayloadException.class)
     public void shouldPaperFormWithFieldErrors() {
         when(bindingResultMock.hasErrors()).thenReturn(true);
         when(bindingResultMock.getFieldErrors()).thenReturn(Collections.singletonList(fieldErrorMock));

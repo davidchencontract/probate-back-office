@@ -9,7 +9,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import uk.gov.hmcts.probate.exception.BadRequestException;
+import uk.gov.hmcts.probate.exception.InvalidPayloadException;
 import uk.gov.hmcts.probate.insights.AppInsights;
 import uk.gov.hmcts.probate.model.ccd.raw.request.CaseDetails;
 import uk.gov.hmcts.probate.model.template.DocumentResponse;
@@ -43,7 +43,7 @@ public class PrintServiceTemplateControllerTest {
         MockitoAnnotations.initMocks(this);
     }
 
-    @Test(expected = BadRequestException.class)
+    @Test(expected = InvalidPayloadException.class)
     public void shouldErrorForLegalStatement() {
         when(bindingResultMock.hasErrors()).thenReturn(true);
 

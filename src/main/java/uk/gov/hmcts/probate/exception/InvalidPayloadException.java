@@ -12,11 +12,11 @@ import java.util.stream.Stream;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class BadRequestException extends RuntimeException {
+public class InvalidPayloadException extends RuntimeException {
 
     private final List<FieldErrorResponse> errors;
 
-    public BadRequestException(final String message, final Errors errors) {
+    public InvalidPayloadException(final String message, final Errors errors) {
         super(message);
         this.errors = Optional.ofNullable(errors)
                 .map(Errors::getFieldErrors)
@@ -24,15 +24,5 @@ public class BadRequestException extends RuntimeException {
                 .orElse(Stream.empty())
                 .map(FieldErrorResponse::of)
                 .collect(Collectors.toList());
-    }
-
-    public BadRequestException(final String message, final List<FieldErrorResponse> errors) {
-        super(message);
-        this.errors = errors;
-    }
-
-    public BadRequestException(final String message) {
-        super(message);
-        this.errors = null;
     }
 }

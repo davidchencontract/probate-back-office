@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import uk.gov.hmcts.probate.exception.BadRequestException;
+import uk.gov.hmcts.probate.exception.InvalidPayloadException;
 import uk.gov.hmcts.probate.model.ccd.raw.request.CaseDetails;
 import uk.gov.hmcts.probate.model.template.DocumentResponse;
 import uk.gov.hmcts.probate.service.template.printservice.PrintService;
@@ -36,7 +36,7 @@ public class PrintServiceTemplateController {
 
         if (bindingResult.hasErrors()) {
             log.error("Case Id: {} ERROR: {}", caseDetails.getId(), bindingResult);
-            throw new BadRequestException("Invalid payload", bindingResult);
+            throw new InvalidPayloadException("Invalid payload", bindingResult);
         }
 
         List<DocumentResponse> docs = printService.getAllDocuments(caseDetails);

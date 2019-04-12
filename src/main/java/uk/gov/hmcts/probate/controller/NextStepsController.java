@@ -15,7 +15,7 @@ import uk.gov.hmcts.probate.controller.validation.ApplicationCreatedGroup;
 import uk.gov.hmcts.probate.controller.validation.ApplicationReviewedGroup;
 import uk.gov.hmcts.probate.controller.validation.ApplicationUpdatedGroup;
 import uk.gov.hmcts.probate.controller.validation.NextStepsConfirmationGroup;
-import uk.gov.hmcts.probate.exception.BadRequestException;
+import uk.gov.hmcts.probate.exception.InvalidPayloadException;
 import uk.gov.hmcts.probate.model.ccd.CCDData;
 import uk.gov.hmcts.probate.model.ccd.raw.request.CallbackRequest;
 import uk.gov.hmcts.probate.model.ccd.raw.response.AfterSubmitCallbackResponse;
@@ -63,7 +63,7 @@ public class NextStepsController {
         } else {
             if (bindingResult.hasErrors()) {
                 log.error("Case Id: {} ERROR: {}", callbackRequest.getCaseDetails().getId(), bindingResult);
-                throw new BadRequestException("Invalid payload", bindingResult);
+                throw new InvalidPayloadException("Invalid payload", bindingResult);
             }
 
             CCDData ccdData = ccdBeanTransformer.transform(callbackRequest);
@@ -95,7 +95,7 @@ public class NextStepsController {
 
         if (bindingResult.hasErrors()) {
             log.error("Case Id: {} ERROR: {}", callbackRequest.getCaseDetails().getId(), bindingResult);
-            throw new BadRequestException("Invalid payload", bindingResult);
+            throw new InvalidPayloadException("Invalid payload", bindingResult);
         }
 
         CCDData ccdData = ccdBeanTransformer.transform(callbackRequest);

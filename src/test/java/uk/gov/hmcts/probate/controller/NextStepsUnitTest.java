@@ -12,7 +12,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import uk.gov.hmcts.probate.exception.BadRequestException;
+import uk.gov.hmcts.probate.exception.InvalidPayloadException;
 import uk.gov.hmcts.probate.insights.AppInsights;
 import uk.gov.hmcts.probate.model.ccd.CCDData;
 import uk.gov.hmcts.probate.model.ccd.Fee;
@@ -106,7 +106,7 @@ public class NextStepsUnitTest {
         assertThat(response.getBody(), is(callbackResponseMock));
     }
 
-    @Test(expected = BadRequestException.class)
+    @Test(expected = InvalidPayloadException.class)
     public void shouldValidateWithError() {
         when(caseDetailsMock.getData()).thenReturn(caseDataMock);
         when(bindingResultMock.hasErrors()).thenReturn(true);
@@ -119,7 +119,7 @@ public class NextStepsUnitTest {
         assertThat(response.getBody(), is(callbackResponseMock));
     }
 
-    @Test(expected = BadRequestException.class)
+    @Test(expected = InvalidPayloadException.class)
     public void shouldValidateWithErrorAndLogRequest() throws JsonProcessingException {
         when(caseDetailsMock.getData()).thenReturn(caseDataMock);
         when(bindingResultMock.hasErrors()).thenReturn(true);
