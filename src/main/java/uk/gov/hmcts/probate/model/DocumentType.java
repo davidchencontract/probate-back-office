@@ -54,7 +54,10 @@ public enum DocumentType {
     DEATH_CERT("deathCertificate"),
 
     @JsonProperty("correspondence")
-    CORRESPONDENCE("correspondence");
+    CORRESPONDENCE("correspondence"),
+
+    @JsonProperty("caveat")
+    CAVEAT("caveat");
 
     private final String templateName;
 

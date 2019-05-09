@@ -27,6 +27,7 @@ import static uk.gov.hmcts.probate.model.Constants.CAVEAT_LIFESPAN;
 @RequiredArgsConstructor
 public class CaveatCallbackResponseTransformer {
 
+    private final DocumentTransformer documentTransformer;
     private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     private static final ApplicationType DEFAULT_APPLICATION_TYPE = PERSONAL;
@@ -118,5 +119,13 @@ public class CaveatCallbackResponseTransformer {
         return ofNullable(dateValue)
                 .map(String::valueOf)
                 .orElse(null);
+    }
+
+    public CaveatCallbackResponse addDocuments(CaveatCallbackRequest callbackRequest, List<Document> documents) {
+        documents.forEach(document -> documentTransformer.addDocument(callbackRequest, document));
+        ResponseCaveatData.ResponseCaveatDataBuilder responseWillLodgementData =
+                getResponseCaveatData(callbackRequest.getCaseDetails());
+        return transformResponse(responseWillLodgementData.build());
+
     }
 }

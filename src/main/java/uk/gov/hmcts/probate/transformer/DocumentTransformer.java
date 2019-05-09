@@ -3,6 +3,7 @@ package uk.gov.hmcts.probate.transformer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import uk.gov.hmcts.probate.model.DocumentType;
+import uk.gov.hmcts.probate.model.ccd.caveat.request.CaveatCallbackRequest;
 import uk.gov.hmcts.probate.model.ccd.raw.CollectionMember;
 import uk.gov.hmcts.probate.model.ccd.raw.Document;
 import uk.gov.hmcts.probate.model.ccd.raw.request.CallbackRequest;
@@ -10,6 +11,7 @@ import uk.gov.hmcts.probate.model.ccd.willlodgement.request.WillLodgementCallbac
 
 import java.util.List;
 
+import static uk.gov.hmcts.probate.model.DocumentType.CAVEAT;
 import static uk.gov.hmcts.probate.model.DocumentType.WILL_LODGEMENT_DEPOSIT_RECEIPT;
 
 @Slf4j
@@ -51,4 +53,10 @@ public class DocumentTransformer {
         }
     }
 
+    public void addDocument(CaveatCallbackRequest callbackRequest, Document document) {
+        if (document.getDocumentType().equals(CAVEAT)) {
+            callbackRequest.getCaseDetails().getData().getDocumentsGenerated()
+                    .add(new CollectionMember<>(null, document));
+        }
+    }
 }
