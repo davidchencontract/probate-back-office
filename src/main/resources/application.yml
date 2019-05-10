@@ -43,6 +43,7 @@ pdf.service:
   defaultDisplayFilename: generated.pdf
   grantSignatureSecretKey: signaturetestkey
   grantSignatureEncryptedFile: signatures/grantSignature-test.png.enc
+  hmctsFamilyLogoBase64File: signatures/hmctsFamilyLogo.png.b64
 
 docmosis:
   service:
