@@ -36,7 +36,7 @@ public class CaveatDocmosisService {
         DateFormat generatedDateFormat = new SimpleDateFormat(DATE_INPUT_FORMAT);
         String hmctsFamilyB64Image = fileSystemResourceService.getFileFromResourceAsString(pdfServiceConfiguration.getHmctsFamilyLogoBase64File());
 
-        placeholders.put("solsSolicitorAppReference", getFormattedCaseReference(caveatDetails.getId().toString()));
+        placeholders.put("caseReference", getFormattedCaseReference(caveatDetails.getId().toString()));
         placeholders.put("generatedDate", generatedDateFormat.format(new Date()));
         placeholders.put("registry", registryPlaceholders);
         placeholders.put("PA8AURL", "www.citizensadvice.org.uk|https://www.citizensadvice.org.uk/");
