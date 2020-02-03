@@ -81,7 +81,6 @@ public class CaveatPersonalisationServiceTest {
     private static final String PERSONALISATION_MESSAGE_CONTENT = "message_content";
     private static final String PERSONALISATION_DATE_CAVEAT_ENTERED = "date_caveat_entered";
     private static final String PERSONALISATION_CAVEATOR_NAME = "caveator_name";
-    private static final String PERSONALISATION_CAVEATOR_ADDRESS = "caveator_address";
 
     HashMap<String, Object> personalisation = new HashMap<>();
     private CaseData caseDataPersonal;
