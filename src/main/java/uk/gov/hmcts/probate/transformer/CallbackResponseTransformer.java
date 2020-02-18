@@ -629,6 +629,8 @@ public class CallbackResponseTransformer {
                 .domicilityCountry(caseData.getDomicilityCountry())
                 .ukEstate(caseData.getUkEstate())
                 .domicilityIHTCert(caseData.getDomicilityIHTCert())
+                .solsEntrustingDoc(caseData.getSolsEntrustingDoc())
+                .solsDomicilityCert(caseData.getSolsDomicilityCert())
                 .entitledToApply(caseData.getEntitledToApply())
                 .entitledToApplyOther(caseData.getEntitledToApplyOther())
                 .notifiedApplicants(caseData.getNotifiedApplicants())
